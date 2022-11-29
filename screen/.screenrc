@@ -1,0 +1,14 @@
+hardstatus on
+hardstatus alwayslastline  ##关闭最下面状态栏显示
+#hardstatus string "%{.bW}%-w%{.rW}%n %t%{-}%+w %=%{..G} %H %{..Y} %m/%d %C%a "
+startup_message off
+termcapinfo xterm* ti@:te@
+defscrollback 10000
+defutf8 on
+defwrap on
+nonblock on
+#caption always "%{= kw}%-w%{= kG}%{+b}[%n %t]%{-b}%{= kw}%+w %=%M%d 0c %{g}%H%{-}"
+caption always "%{= kw}%-w%{= kG}%{+b}%n %t%{-b}%{= kw}%+w"
+defencoding utf8
+encoding utf8 utf8
+vbell off

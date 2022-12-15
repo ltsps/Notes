@@ -1,0 +1,8 @@
+function FindProxyForURL(url, host) {
+  if (shExpMatch(url, "*google.com*") ||
+      shExpMatch(url, "*.googleapis.com*") ||
+      dnsDomainIs(host, "www.google.com") ||
+      shExpMatch(url, "*youtube.com*")) {
+    return "SOCKS 192.168.1.233:1080";
+  }
+}

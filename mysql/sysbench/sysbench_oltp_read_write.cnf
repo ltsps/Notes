@@ -1,0 +1,21 @@
+#### 测试数据库的综合读写 TPS，使用的是 oltp_read_write 模式：
+
+#    sysbench --db-driver=mysql --time=300 --threads=100 --report-interval=1 --mysql-host=127.0.0.1 --mysql-port=3306 --mysql-user=test_user --mysql-password=test_user --mysql-db=test_db --tables=20 --table_size=1000000 oltp_read_write --db-ps-mode=disable run
+
+mysql-user=db_admin
+mysql-password=Hello@123
+mysql-port=3306
+mysql-host=rm-k1w01sfpndc5kxvm7935.mysql.rds.intra.env6e.shuguang.com
+threads=100
+time=300
+db-driver=mysql
+verbosity=4
+mysql-db=test_ly
+tables=2
+table_size=100
+db-ps-mode=disable
+report-interval=1
+validate
+
+## sysbench oltp_read_write/oltp_read_only/oltp_write_only run --config-file=sysbench_oltp_read_write.cnf
+## oltp_read_write /usr/share/sysbench/oltp_read_write.lua

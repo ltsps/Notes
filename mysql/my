@@ -1,0 +1,8 @@
+[ -z "$1" ] && PORT=3306 || PORT=$1
+echo Entry Port ==== $PORT
+
+if which mysql_secbox > /dev/null 2>&1 ; then
+  mysql_secbox --exe-path=mysql -A -uroot -h127.0.0.1 -P${PORT}
+else
+  mysql -A -uroot -h127.0.0.1 -P${PORT}
+fi

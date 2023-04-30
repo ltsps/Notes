@@ -14,3 +14,7 @@ git branch -r          ## list remote branch
 git branch -a          ## list all branch
 
 git branch update      ## update remote branch
+
+
+
+git push notes master

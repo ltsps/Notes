@@ -14,3 +14,4 @@ Host bastion_GOP_SG_NC_MAIN
   port 22
   User wangao
 
+ssh -yfNR *:9080:3.lysps.top:9080 root@192.168.1.2 -p 2222

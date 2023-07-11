@@ -1,20 +1,31 @@
-#### 1.Setting your Git username for every repository on your computer
+#### 1. add ssh pubkey to setting' ssh and gpg keys
+
+#### 2. git clone git@github.com:xx/xx.git
+
+#### 3. push file to git
+
+
+
+
+
+#### Setting your Git username for every repository on your computer
 git config --global user.name 'xx'   ## ~/.gitconfig
 git config --system   ## /etc/gitconfig
 git config --local    ## .git/config
 git config --worktree ## .git/config.worktree
 
-#### 2. Setting your commit email address in Git
+#### Setting your commit email address in Git
 git config --worktree user.email 'xx@mail.com'
 
-#### 3. Creating remote repositories
+#### Creating remote repositories
 git remote add $remote_registry_name https://gitee.com/XXX/XXX.git ## add remote responsy
 
-#### 4. add ssh pubkey to setting' ssh and gpg keys
+#### add ssh pubkey to setting' ssh and gpg keys
 
-#### 5. git clone git@github.com:xx/xx.git
+#### git clone git@github.com:xx/xx.git
 
-#### 6. push file to git
+####  push file to git
+git push $remote_registry_name $branch
 git push $remote_registry_name -d yyy ## delete remote branch
 
 

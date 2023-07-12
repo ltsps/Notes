@@ -43,3 +43,8 @@ git push notes master
 1. click  Settings in your repository,
 2. In the "Access" section of the sidebar, click  Collaborators.
 3. Click Add people.
+
+## git push error
+git fetch origin/main #抓取远端主分支
+git log -p main origin/main #对比本地分支
+git merge origin/main # 确认无误后合并

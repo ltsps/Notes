@@ -40,3 +40,8 @@ class ExtendedTest(Test):
 'overridden'
 >>> t2.__baz
 AttributeError: "'ExtendedTest' object has no attribute '__baz'"
+>>>
+升级pip
+python -m pip install --upgrade pip
+使用国内源下载
+pip3 install pandas -i https://pypi.tuna.tsinghua.edu.cn/simple

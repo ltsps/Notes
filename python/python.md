@@ -1,4 +1,4 @@
-1. 单前导下划线 _var（弱提示，给程序员提示）
+#### 1. 单前导下划线 _var（弱提示，给程序员提示）
 >>> from my_module import *
 >>> external_func()
 23
@@ -9,9 +9,9 @@ NameError: "name '_internal_func' is not defined"
 23
 >>> my_module._internal_func()
 42
-2. 单末尾下划线 var_
+##### 2. 单末尾下划线 var_
 解决命名冲突
-3. 双前导下划线 __var
+#### 3. 双前导下划线 __var
 防止被子类重写
 class Test:
    def __init__(self):
@@ -40,8 +40,11 @@ class ExtendedTest(Test):
 'overridden'
 >>> t2.__baz
 AttributeError: "'ExtendedTest' object has no attribute '__baz'"
->>>
-升级pip
+>>
+#### 获取py文件的目录和绝对路径
+os.path.dirname(__file__)
+os.path.abspath(__file__)
+#### 升级pip
 python -m pip install --upgrade pip
-使用国内源下载
+#### 使用国内源下载
 pip3 install pandas -i https://pypi.tuna.tsinghua.edu.cn/simple

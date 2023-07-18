@@ -1,13 +1,13 @@
 #### 1. 单前导下划线 _var（弱提示，给程序员提示）
->>> from my_module import *
->>> external_func()
+>>from my_module import *
+>>external_func()
 23
->>> _internal_func()
+>>_internal_func()
 NameError: "name '_internal_func' is not defined"
->>> import my_module
->>> my_module.external_func()
+>>import my_module
+>>my_module.external_func()
 23
->>> my_module._internal_func()
+>>my_module._internal_func()
 42
 ##### 2. 单末尾下划线 var_
 解决命名冲突
@@ -18,8 +18,8 @@ class Test:
        self.foo = 11
        self._bar = 23
        self.__baz = 23
->>> t = Test()
->>> dir(t)
+>>t = Test()
+>>dir(t)
 ['_Test__baz', '__class__', '__delattr__', '__dict__', '__dir__',
 '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__',
 '__gt__', '__hash__', '__init__', '__le__', '__lt__', '__module__',
@@ -33,12 +33,12 @@ class ExtendedTest(Test):
        self.foo = 'overridden'
        self._bar = 'overridden'
        self.__baz = 'overridden'
->>> t2 = ExtendedTest()
->>> t2.foo
+>>t2 = ExtendedTest()
+>>t2.foo
 'overridden'
->>> t2._bar
+>>t2._bar
 'overridden'
->>> t2.__baz
+>>t2.__baz
 AttributeError: "'ExtendedTest' object has no attribute '__baz'"
 >>
 #### 获取py文件的目录和绝对路径

@@ -7,3 +7,8 @@ docker exec -it  openwrt /bin/ash
 
 opkg install lighttpd  ## uhttpd
 
+
+单口配置
+docker network create -d macvlan mvnet
+docker run -d -i --network mvnet --name openwrt --restart always --privileged openwrt-22.03.5-x86-64-rootfs /sbin/init
+

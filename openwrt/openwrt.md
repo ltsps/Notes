@@ -9,6 +9,6 @@ opkg install lighttpd  ## uhttpd
 
 
 单口配置
-docker network create -d macvlan mvnet
+docker network create -d macvlan -o parent=enp1s0 mvnet
 docker run -d -i --network mvnet --name openwrt --restart always --privileged openwrt-22.03.5-x86-64-rootfs /sbin/init
 

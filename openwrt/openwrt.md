@@ -12,3 +12,12 @@ opkg install lighttpd  ## uhttpd
 docker network create -d macvlan -o parent=enp1s0 mvnet
 docker run -d -i --network mvnet --name openwrt --restart always --privileged openwrt-22.03.5-x86-64-rootfs /sbin/init
 
+# x86添加switch
+安装 opkg install swconfig
+vi /etc/config/network
+config switch
+        option name 'switch0'
+        option reset '1'
+        option enable '1'
+完成添加后，reboot
+

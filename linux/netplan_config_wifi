@@ -1,0 +1,28 @@
+netplan config
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    ens1:
+      addresses:
+        - 192.168.1.xxx/24
+          # gateway4: 192.168.1.xxx
+      nameservers: 
+        addresses: [114.114.114.114,202.101.172.35]
+  wifis:
+    wlp1s0:
+      #optional: true
+      access-points:
+        "WIFI":
+          password: "xxxx"
+      dhcp4: true
+
+
+
+###
+wifi
+sudo ifconfig wlan0 up
+SIOCSIFFLAGS: Operation not possible due to RF-kill
+rfkill list all
+lshw -class network
+sudo rfkill unblock wifi; sudo rfkill unblock all

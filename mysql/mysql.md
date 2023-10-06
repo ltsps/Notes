@@ -26,3 +26,7 @@ select TABLE_NAME as 表名 ,TABLE_SCHEMA as 数据库名, ENGINE as 存储引�
 
 # docker run
 docker run -d --net mynet --name mysql -v /opt/mysql/conf.d:/etc/mysql/conf.d  -v /opt/mysql/datadir:/var/lib/mysql --env MARIADB_USER=example-user --env MARIADB_PASSWORD=my_cool_secret --env MARIADB_ROOT_PASSWORD=my-secret-pw mariadb:latest 
+
+# 导入数据
+load data local infile 'order-manage-urgency.csv' into table order_manage_urgency fields terminated by ',' lines
+terminated by '\r\n';

@@ -48,3 +48,6 @@ git push notes master
 git fetch origin/main #抓取远端主分支
 git log -p main origin/main #对比本地分支
 git merge origin/main # 确认无误后合并
+
+## 解决中文显示乱码问题
+git config --global core.quotepath false

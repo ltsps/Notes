@@ -11,6 +11,15 @@ Host httptest
 
 #ssh root@192.168.50.14 -o "ProxyCommand nc --proxy 192.168.50.14:3128 %h %p"   
 
+Host 86ecs
+        HostName 10.86.58.131
+        User root
+        Port 2223
+        ServerAliveInterval 3
+        StrictHostKeyChecking no
+        #ProxyCommand nc -X 5 -x 100.64.64.132:50544 %h %p  ##socks
+        ProxyCommand nc -X connect -x 100.64.64.132:50434 %h %p  ##http
+
 
 Host __test__
         User user

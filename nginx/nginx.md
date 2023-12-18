@@ -20,3 +20,31 @@ server {
     location /{
     .......
 }
+
+
+
+添加request_id
+1、这种方法前端不会显示
+修改在nginx.conf同一路径下的fastcgi_params文件，添加如下内容
+fastcgi_param HTTP_REQUEST_ID $request_id;
+添加nginx的日志格式：
+log_format sas '$http_x_forwarded_for - $request_id';
+
+2、这种配置后前端可以拿到request_id，后端也可以拿到
+
+server{
+  set $trace_id "${request_id}";
+  if ($http_x_atrace_id != "" ){
+      set $trace_id "${http_x_atrace_id}";
+  }
+  add_header trace_id $trace_id always;
+  #无论什么状态码都会返回request_id;
+
+  #配置反向代理时使用
+  proxy_set_header x-atrace-id $trace_id;
+
+  ...
+}
+
+body_send 流出量
+request_size 流入量

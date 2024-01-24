@@ -6,3 +6,4 @@ apt install qemu-system-x86_64
 
 
 qemu-system-x86_64  -drive format=raw,file=openwrt.img -nographic
+退出 ctrl+a，x

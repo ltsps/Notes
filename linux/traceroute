@@ -1,0 +1,2 @@
+## tcping
+traceroute -n -T -f 255 -m 255 -q 1 -w 0.5 -p 8080 qlsxk.zjzwfw.gov.cn/zjqlk/frame/pages/login/login

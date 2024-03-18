@@ -55,3 +55,5 @@ python3 -m venv venv_dir
 venv_dir/bin/activate
 ### 退出
 deactivate
+
+python3 -m http.server 8000

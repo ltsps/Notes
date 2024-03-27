@@ -30,3 +30,8 @@ docker run -d --net mynet --name mysql -v /opt/mysql/conf.d:/etc/mysql/conf.d  -
 # 导入数据
 load data local infile 'order-manage-urgency.csv' into table order_manage_urgency fields terminated by ',' lines
 terminated by '\r\n';
+
+
+create database test default character set utf8 collate utf8_general_ci;
+create user 'user'@'%' identified by 'xxx';
+ grant all privileges on test.* to 'user'@'%';

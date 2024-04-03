@@ -41,3 +41,7 @@ create user 'user'@'%' identified by 'xxx';
  1、show variables like '%max_connections%';
  set global max_connections=1000;
  2、修改配置文件my.cnf中设置max_connections
+
+ # mysql自带压测工具
+ mariadb-slap -uroot -pgwycel --concurrency=999 --number-of-queries=10000000 --create-schema=testdb --query="insert into test_table (name) values (uuid())"
+ 

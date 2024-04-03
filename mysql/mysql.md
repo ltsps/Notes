@@ -32,6 +32,12 @@ load data local infile 'order-manage-urgency.csv' into table order_manage_urgenc
 terminated by '\r\n';
 
 
+# 创建数库和用户及授权
 create database test default character set utf8 collate utf8_general_ci;
 create user 'user'@'%' identified by 'xxx';
  grant all privileges on test.* to 'user'@'%';
+
+ # 修改数据库并发连接
+ 1、show variables like '%max_connections%';
+ set global max_connections=1000;
+ 2、修改配置文件my.cnf中设置max_connections

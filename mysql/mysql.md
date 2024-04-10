@@ -44,4 +44,13 @@ create user 'user'@'%' identified by 'xxx';
 
  # mysql自带压测工具
  mariadb-slap -uroot -pgwycel --concurrency=999 --number-of-queries=10000000 --create-schema=testdb --query="insert into test_table (name) values (uuid())"
+
+ # 强制】表必备三字段：id，create_time，update_time
+  CREATE TABLE `tt` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `name` varchar(255) NOT NULL COMMENT '名称',
+  `create_time` datetime NOT NULL DEFAULT current_timestamp() COMMENT '创建时间',
+  `update_time` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='tt'
  

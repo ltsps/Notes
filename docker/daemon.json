@@ -4,5 +4,8 @@
         "insecure-registries":["xxxxx:80"],
         "registry-mirrors": ["http://hub-mirror.c.163.com"],
         "live-restore": true,
-        "hosts": ["tcp://0.0.0.0:4243", "unix:///var/run/docker.sock"]
+        "hosts": ["tcp://0.0.0.0:4243", "unix:///var/run/docker.sock"],
+        "dns": ["114.114.114.114","172.25.160.1"],
+        "dns-opts":["debug"],
+        "dns-search":["example.com"]
 }

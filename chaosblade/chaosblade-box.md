@@ -15,3 +15,11 @@ nohup java --add-opens java.base/java.lang=ALL-UNNAMED -Duser.timezone=Asia/Shan
 
 java 版本需要使用jre8测试没有问题，也可以编译
 
+
+客户端安装
+sh /opt/chaos/chaosctl.sh install -k c3c54a0c8f67420f84455ef98162c7c2 -p tomcat -g docker -n docker -t chaos:7001
+-t chaos endpoint
+-n namespace
+-k license
+-p applicationInstance
+-G applicationgroup

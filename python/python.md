@@ -52,7 +52,7 @@ pip3 install pandas -i https://pypi.tuna.tsinghua.edu.cn/simple
 ### 使用虚拟环境
 python3 -m venv venv_dir
 ### 进入虚拟环境
-venv_dir/bin/activate
+source venv_dir/bin/activate
 ### 退出
 deactivate
 

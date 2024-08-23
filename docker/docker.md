@@ -21,3 +21,8 @@ Environment="HTTP_PROXY=http://proxy.example.com:8080/"
 Environment="HTTPS_PROXY=socks5://proxy.example.com:8080/"
 Environment="NO_PROXY=localhost,127.0.0.1,.example.com"
 ###ps:https://note.qidong.name/2020/05/docker-proxy/
+
+
+### 添加普通用户docker命令的使用权限
+
+sudo usermod -aG docker $USER && newgrp docker

@@ -38,3 +38,18 @@ Host a* b* c* d* e* f* h* i* j* k* l* m* n* o* p* q* r* s* t* u* v* w* x* y* z*
 Host A* B* C* D* E* F* H* I* J* K* L* M* N* O* P* Q* R* S* T* U* V* W* X* Y* Z*
         ProxyCommand ssh -F /home/ly/.ssh/usm/ssh_config -q __test__ -W %h:%p
         ForwardAgent yes
+
+
+
+### 客户端连接一段时间后卡死问题解决
+修改客户端
+在客户端上修改文件/etc/ssh/ssh_config，添加如下内容：
+#### 添加
+ServerAliveInterval 60
+ServerAliveCountMax 10
+
+修改服务端
+在服务器上修改文件/etc/ssh/sshd_config，添加如下内容：
+#####  添加
+ClientAliveInterval 60
+ClientAliveCountMax 10

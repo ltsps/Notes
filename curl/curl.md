@@ -20,3 +20,5 @@ curl -IL -H "X-Forwarded-For:8.8.8.8" https://www.test.com/static/09.png
 
 
 curl -vI --silent https://www.baidu.com/ 2>&1 | grep expire
+
+curl -vI --silent https://www.baidu.com/ --stderr - | grep expire

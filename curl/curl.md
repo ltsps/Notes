@@ -17,3 +17,6 @@ for i in `seq 1 10`; do curl -m 2 "http://127.0.0.1:8083/test"; done
 curl http://test.com/ -H 'X-Forwarded-For: 1.1.1.1' -H 'X-Real-IP: 2.2.2.2'
 
 curl -IL -H "X-Forwarded-For:8.8.8.8" https://www.test.com/static/09.png
+
+
+curl -vI --silent https://www.baidu.com/ 2>&1 | grep expire

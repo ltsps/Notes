@@ -1,0 +1,5 @@
+# 统计tcp各状态的数量
+netstat -an | awk '/^tcp/ {++y[$NF]} END {for(w in y) print w, y[w]}'
+
+# 统计各ip建立的连接数量
+netstat -nat|grep "tcp"|awk ' {print$5}'|awk -F : '{print$1}'|sort|uniq -c|sort -rn

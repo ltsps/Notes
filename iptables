@@ -1,0 +1,9 @@
+### 通过ipset和iptables阻止扫描ip
+#### 通过ipset命令创建黑名单列表
+ipset create blacklist hash:net
+iptables -I INPUT -m set --match-set blacklist src -j DROP
+-m set # 指定集合模块
+--match-set # 指定集合名称
+ipset add --exist blacklist 203.228.4.123
+
+*/50 * * * * cat /var/log/secure |grep Failed|grep -v "ly\|cly" | awk '/Failed/{print $(NF-3)}' | sort | uniq |xargs -I {} firewall-cmd --permanent --ipset=blacklist --add-entry={}

@@ -22,3 +22,5 @@ ssh -NfCD 127.0.0.1:10088 u0_a398@3.lysps.top -p 9222
 ssh -NfCL 127.0.0.1:10086:100.64.64.132:50434 u0_a398@3.lysps.top -p 9222
 
 ssh -o TCPKeepAlive=yes -o ServerAliveInterval=10 -o StrictHostKeyChecking=no -o Compression=yes -NfCD 10.137.69.199:1088 xxx.xx.xxx.xx -p 3954
+
+GatewayPorts yes  需要0.0.0.0端口，需要打开sshd_config文件的配置

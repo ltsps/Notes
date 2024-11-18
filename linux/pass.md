@@ -19,3 +19,8 @@ pass insert tet@test
 # 生成密码
 pass generate test/test
 
+# gpg迁移
+gpg --list-keys [uid]
+gpg --export-secret-keys [uid] > private.key
+gpg --import private.key
+

@@ -48,3 +48,16 @@ server{
 
 body_send 流出量
 request_size 流入量
+
+
+### 反向代理prometheus和grafana
+        location /prometheus/ {
+                proxy_pass http://127.0.0.1:9090/prometheus/;
+        }
+
+        location /grafana/ {
+                proxy_pass http://127.0.0.1:3000/;
+                proxy_set_header Host $http_host;   ## 不添加已知修改密码会报origin not allowed
+        }
+#### prometheus启动需要加上 --web.external-url=prometheus
+#### grafana 配置文件root_url = %(protocol)s://%(domain)s:%(http_port)s/grafana

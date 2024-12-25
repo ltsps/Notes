@@ -1,6 +1,6 @@
-1、安装docker
+### 1、安装docker
 下载离线安装包https://download.docker.com/linux/centos/7/x86_64/stable/Packages/
-2、创建docker私有镜像库
+### 2、创建docker私有镜像库
 docker pull registry
 涉及dockerd代理
 （1）docker.service
@@ -8,7 +8,7 @@ docker pull registry
 Environment="HTTP_PROXY=socks5://127.0.0.1:9080"
 Environment="HTTPS_PROXY=socks5://127.0.0.1:9080"
 Environment="NO_PROXY=localhost,127.0.0.1"
-3、安装k8s
+### 3、安装k8s
 （1）配置yum源
  cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
@@ -40,7 +40,7 @@ kubeadm join 10.209.69.12:6443 --token voj8z6.ytej05mfnul5gci7 \
 
     --discovery-token-ca-cert-hash sha256:d12c6150f5752238e8eabe81403ff4defaf2aeb1a1c159ed7310e027b367b57b
 
-4、安装flannel
+### 4、安装flannel
 下载https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml文件
 
 把里面依赖的image都在有网络环境中下载下来；
@@ -62,7 +62,9 @@ kubectl apply -f flannel.yml
 查看节点  是否为ready
 
 kubectl get nodes
-————————————————
-原文链接：https://blog.csdn.net/hsp1990/article/details/105458767
+
+
+### 查看kube-proxy使用iptables还是ipvs
+kubectl get configmap kube-proxy -n kube-system -o yaml |grep mode
 
 

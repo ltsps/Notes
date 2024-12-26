@@ -54,5 +54,5 @@ create user 'user'@'%' identified by 'xxx';
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='tt';
 ### 插入测试数据
-insert into tt (name,create_time) value (@@hostname, now());
+insert into tt (name,create_time) values (@@hostname, now());
  

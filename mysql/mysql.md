@@ -52,5 +52,7 @@ create user 'user'@'%' identified by 'xxx';
   `create_time` datetime NOT NULL DEFAULT current_timestamp() COMMENT '创建时间',
   `update_time` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='tt'
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='tt';
+### 插入测试数据
+insert into tt (name,create_time) value (@@hostname, now());
  

@@ -8,3 +8,8 @@ mysql console
 
 ### Mysql client install
 apt install default-mysql-client
+
+### manage mycat
+mysql -h127.0.0.1 -P9066 -uroot -p123456 [-dTESTDB]
+show @@help
+

@@ -8,3 +8,13 @@ ipset add --exist blacklist 203.228.4.123
 
 */50 * * * * cat /var/log/secure |grep Failed|grep -v "ly\|cly" | awk '/Failed/{print $(NF-3)}' | sort | uniq |xargs -I {} firewall-cmd --permanent --ipset=blacklist --add-entry={}
 */5 * * * * lastb -s `date -d now +%Y-%m-%d`|grep -v ly |grep -oE "([0-9]{1,3}\.){3}[0-9]{1,3}" |sort|uniq | xargs -I {} ipset --exist add blacklist {}
+
+
+### 限制访问ip
+iptables -A INPUT -p tcp --dport 8081 -j DROP
+iptables -A OUTPUT -s 10.249.63.159 -p tcp --dport 8081 -j DROP
+iptables -A OUTPUT -d 10.249.63.159 -p tcp --sport 8081 -j DROP
+
+### 删除规则
+iptables -L --line-numbers
+iptables -D <链名> <规则编号>

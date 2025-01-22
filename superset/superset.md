@@ -34,3 +34,21 @@ SECRET_KEY = ‘Add your new key’
 superset db upgrade 
 superset re-encrypt-secrets
 superset init
+
+
+Open superset_config.py and change SECRET_KEY
+Open superset metadb through a client. Example for Postgres.
+sudo -i -u postgres
+
+Activate the metaDB.
+\connect db_name;
+
+Set password and encryption to null.
+update dbs set password = null;
+
+update dbs set encrypted_extra = null;
+
+Navigate to superset prompt and run
+superset db upgrade superset init superset run
+
+Go to the superset UI and update password on Data > Databases

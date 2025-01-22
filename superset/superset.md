@@ -5,7 +5,7 @@ docker run -d -it --name superset -p 8089:8088 --network minikube apache/superse
 
 openssl rand -base64 42
 export SUPERSET_SECRET_KEY='v9N3yX7a1tK+3VeyUP0haOvFgpZlYUsDqD1ye67SrLSH+stVzdJg1LdF'
-echo "SECRET_KEY = 'EY16MU0mTw1HYfkIOne9XDyynuY7gn8Dsgm9cI5MxFkQLzMU21mP0Y1J'" > superset_config.py
+echo "SECRET_KEY = 'v9N3yX7a1tK+3VeyUP0haOvFgpZlYUsDqD1ye67SrLSH+stVzdJg1LdF'" > superset_config.py
 
 pip install pillow
 

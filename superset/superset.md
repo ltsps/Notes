@@ -5,7 +5,11 @@ docker run -d -it --name superset -p 8089:8088 --network minikube apache/superse
 
 openssl rand -base64 42
 export SUPERSET_SECRET_KEY='v9N3yX7a1tK+3VeyUP0haOvFgpZlYUsDqD1ye67SrLSH+stVzdJg1LdF'
-echo "SECRET_KEY = 'v9N3yX7a1tK+3VeyUP0haOvFgpZlYUsDqD1ye67SrLSH+stVzdJg1LdF'" > superset_config.py
+#echo "SECRET_KEY = 'v9N3yX7a1tK+3VeyUP0haOvFgpZlYUsDqD1ye67SrLSH+stVzdJg1LdF'" > superset_config.py
+
+cp /app/superset/config.py /app/superset_config.py，删除1860行之后的内容，避免重复加载superset_config
+
+添加 SECRET_KEY = 'v9N3yX7a1tK+3VeyUP0haOvFgpZlYUsDqD1ye67SrLSH+stVzdJg1LdF'"
 
 pip install pillow
 

@@ -20,3 +20,17 @@ superset fab create-admin
 export SUPERSET_CONFIG=superset_config;
 
 flask fab create-admin
+
+# 更新key
+#Open shell
+superset shell
+#Print Secret key
+from flask import current_app; print(current_app.config["SECRET_KEY"]) # 查看现在的key
+
+PREVIOUS_SECRET_KEY = ‘Paste the key you just found’
+SECRET_KEY = ‘Add your new key’
+
+
+superset db upgrade 
+superset re-encrypt-secrets
+superset init

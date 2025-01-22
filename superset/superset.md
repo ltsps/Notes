@@ -10,6 +10,7 @@ export SUPERSET_SECRET_KEY='v9N3yX7a1tK+3VeyUP0haOvFgpZlYUsDqD1ye67SrLSH+stVzdJg
 cp /app/superset/config.py /app/superset_config.py，删除1860行之后的内容，避免重复加载superset_config
 
 添加 SECRET_KEY = 'v9N3yX7a1tK+3VeyUP0haOvFgpZlYUsDqD1ye67SrLSH+stVzdJg1LdF'"
+注释#SECRET_KEY = os.environ.get("SUPERSET_SECRET_KEY") or CHANGE_ME_SECRET_KEY
 
 pip install pillow
 

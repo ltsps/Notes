@@ -1,0 +1,35 @@
+#!/bin/bash
+
+
+# 自签证书生成
+# 自签证书验证
+# openssl x509 -in notarysignerserver.crt -text -noout
+
+
+DOMAIN="notarysigner"
+CERT_DIR="./"
+COUNTRY="CN"
+STATE="ZHEJIANG"
+CITY="HANGZHOU"
+ORG_NAME="DIY"
+EMAIL="admin@gmail.com"
+KEY_SIZE="2048"
+DAYS="365"
+
+
+# 一、生成ca根证书
+## 创建私钥/生成加密私钥
+openssl genrsa -out "$DOMAIN"rootCA.key $KEY_SIZE
+#openssl genrsa -des3 -out rootCA.key 2048
+
+## 根据请求生成ca根证书
+openssl req -new -x509 -days 365 -key "$DOMAIN"rootCA.key -subj "/C=$COUNTRY/ST=$STATE/L=$CITY/O=$ORG_NAME/CN=$DOMAIN" -out "$DOMAIN"rootCA.crt
+
+
+
+# 二、生成CA自签证书
+## 创建私钥key和crs
+openssl req -newkey rsa:2048 -nodes -keyout "$DOMAIN"server.key -subj "/C=$COUNTRY/ST=$STATE/L=$CITY/O=$ORG_NAME/CN=$DOMAIN" -out "$DOMAIN"server.csr
+
+## 使用CA根证书签名CRT
+openssl x509 -req -extfile <(printf "subjectAltName=DNS:$DOMAIN,DNS:www.$DOMAIN") -days 365 -in "$DOMAIN"server.csr -CA "$DOMAIN"rootCA.crt -CAkey "$DOMAIN"rootCA.key -CAcreateserial -out "$DOMAIN"server.crt

@@ -24,6 +24,7 @@ openssl genrsa -out "$DOMAIN"rootCA.key $KEY_SIZE
 
 ## 根据请求生成ca根证书
 openssl req -new -x509 -days 365 -key "$DOMAIN"rootCA.key -subj "/C=$COUNTRY/ST=$STATE/L=$CITY/O=$ORG_NAME/CN=$DOMAIN" -out "$DOMAIN"rootCA.crt
+### 将"$DOMAIN"rootCA.crt证书导入到浏览器即可完成授信
 
 
 

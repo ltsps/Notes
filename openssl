@@ -37,6 +37,8 @@ openssl x509 -req -extfile <(printf "subjectAltName=DNS:$DOMAIN,DNS:www.$DOMAIN"
 ### 生成ip证书
 openssl x509 -req -extfile <(printf "subjectAltName=IP:$DOMAIN") -days 365 -in "$DOMAIN"server.csr -CA "$DOMAIN"rootCA.crt -CAkey "$DOMAIN"rootCA.key -CAcreateserial -out "$DOMAIN"server.crt
 
+## 检查证书
+#openssl x509 -in 59.202.51.174server.crt -text -noout
 
 # jdk授信
 # cd $JAVA_HOME/jre/lib/security

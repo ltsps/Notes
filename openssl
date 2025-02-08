@@ -33,7 +33,8 @@ openssl req -newkey rsa:2048 -nodes -keyout "$DOMAIN"server.key -subj "/C=$COUNT
 
 ## 使用CA根证书签名CRT
 openssl x509 -req -extfile <(printf "subjectAltName=DNS:$DOMAIN,DNS:www.$DOMAIN") -days 365 -in "$DOMAIN"server.csr -CA "$DOMAIN"rootCA.crt -CAkey "$DOMAIN"rootCA.key -CAcreateserial -out "$DOMAIN"server.crt
-
+### 生成ip证书
+openssl x509 -req -extfile <(printf "subjectAltName=IP:$DOMAIN") -days 365 -in "$DOMAIN"server.csr -CA "$DOMAIN"rootCA.crt -CAkey "$DOMAIN"rootCA.key -CAcreateserial -out "$DOMAIN"server.crt
 
 
 # jdk授信

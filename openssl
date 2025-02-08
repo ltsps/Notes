@@ -33,3 +33,10 @@ openssl req -newkey rsa:2048 -nodes -keyout "$DOMAIN"server.key -subj "/C=$COUNT
 
 ## 使用CA根证书签名CRT
 openssl x509 -req -extfile <(printf "subjectAltName=DNS:$DOMAIN,DNS:www.$DOMAIN") -days 365 -in "$DOMAIN"server.csr -CA "$DOMAIN"rootCA.crt -CAkey "$DOMAIN"rootCA.key -CAcreateserial -out "$DOMAIN"server.crt
+
+
+
+# jdk授信
+# cd $JAVA_HOME/jre/lib/security
+# keytool -importcert -trustcacerts -keystore cacerts --storepass changeit -alias rootCA -file CA.crt -noprompt
+# keytool -importcert -trustcacerts -keystore cacerts --storepass changeit -alias app -file private.crt -noprompt

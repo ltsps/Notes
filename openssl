@@ -41,7 +41,7 @@ openssl x509 -req -extfile <(printf "subjectAltName=IP:$DOMAIN") -days 365 -in "
 # 方法二
 ##或通过一条命令进行生成根证书
 #openssl req -x509 -newkey rsa:4096 -sha256 -days 3650 -nodes -keyout rootCA-key.pem -subj "/C=$COUNTRY/ST=$STATE/L=$CITY/O=$ORG_NAME/CN=$DOMAIN" -out rootCA.crt
-## rootCA.crt安装到浏览器根证书中
+## rootCA.crt证书导入到浏览器即可完成授信
 ## 生成证书文件
 #openssl req -x509 -newkey rsa:2048 -sha256 -days 3650 -nodes -keyout "$DOMAIN"cert.pem -CA rootCA.crt -CAkey rootCA-key.pem  -subj "/C=$COUNTRY/ST=$STATE/L=$CITY/O=$ORG_NAME/CN=$DOMAIN" -addext "subjectAltName=IP:$DOMAIN" -out "$DOMAIN"cert.crt
 

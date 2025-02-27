@@ -20,5 +20,7 @@ curl -IL -H "X-Forwarded-For:8.8.8.8" https://www.test.com/static/09.png
 
 
 curl -vI --silent https://www.baidu.com/ 2>&1 | grep expire
-
+# 查看证书
 curl -vI --silent https://www.baidu.com/ --stderr - | grep expire
+
+cat host |xargs -t -I {} curl -L -vI -s -w "%{http_code}" "https://{}" -o /dev/null

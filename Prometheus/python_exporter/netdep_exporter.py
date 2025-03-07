@@ -44,6 +44,34 @@ def update_metrics():
         tx_queue_gauge.labels(local_ip=local_ip, local_port=local_port, rem_ip=rem_ip, rem_port=rem_port).set(tx_queue)
         rx_queue_gauge.labels(local_ip=local_ip, local_port=local_port, rem_ip=rem_ip, rem_port=rem_port).set(rx_queue)
 
+class AuthHandler(BaseHTTPRequestHandler):
+    """Main class to present webpages and authentication."""
+    def do_HEAD(self):
+        self.send_response(200)
+        self.send_header('Content-type', 'text/html')
+        self.end_headers()
+
+    def do_AUTHHEAD(self):
+        self.send_response(401)
+        self.send_header('WWW-Authenticate', 'Basic realm="Test"')
+        self.send_header('Content-type', 'text/html')
+        self.end_headers()
+
+    def do_GET(self):
+        """Present frontpage with user authentication."""
+        if self.headers.get('Authorization') == None:
+            self.do_AUTHHEAD()
+            self.wfile.write(b'no auth header received')
+        elif self.headers.get('Authorization') == 'Basic ' + str(base64.b64encode(b"username:password"), "utf-8"):
+            self.send_response(200)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+            self.wfile.write(b'authenticated!')
+        else:
+            self.do_AUTHHEAD()
+            self.wfile.write(self.headers.get('Authorization').encode())
+            self.wfile.write(b'not authenticated')
+
 if __name__ == '__main__':
     if len(sys.argv) != 2:
         print("Usage: python main.py --web.config.file=<config_file_path>")
@@ -62,9 +90,14 @@ if __name__ == '__main__':
     # Print or use the extracted information as needed
     print("TLS Information:", cert_file)
     print("Authentication Information:", auth_info)
+
+    app = make_wsgi_app(custom_registry)
+    httpd = make_server('127.0.0.1', 9300, app)
+    httpd.serve_forever()
+    
     # Start up the server to expose the metrics.
-    start_http_server(9300,'127.0.0.1',registry=custom_registry,certfile=cert_file,keyfile=key_file)
+    #start_http_server(9300,'127.0.0.1',registry=custom_registry,certfile=cert_file,keyfile=key_file)
     # Update metrics in a loop
-    while True:
-        update_metrics()
-        time.sleep(15)  # Update every 10 seconds
+    #while True:
+    #    update_metrics()
+    #    time.sleep(15)  # Update every 10 seconds

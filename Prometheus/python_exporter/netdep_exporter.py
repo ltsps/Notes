@@ -1,10 +1,14 @@
-from prometheus_client import start_http_server, Gauge,CollectorRegistry
+from prometheus_client import start_http_server, Gauge, CollectorRegistry, make_wsgi_app
 import socket
 import struct
 import time
 import sys
+import ssl
 import yaml
-
+from http.server import BaseHTTPRequestHandler
+from wsgiref.simple_server import make_server
+from base64 import b64decode
+import bcrypt
 
 def parse_yaml_config(file_path):
     with open(file_path, 'r') as file:
@@ -36,41 +40,33 @@ def parse_tcp_file():
 custom_registry = CollectorRegistry()
 
 # Define Prometheus metrics
-tx_queue_gauge = Gauge('tcp_tx_queue', 'TCP TX Queue', ['local_ip', 'local_port','rem_ip','rem_port'], registry=custom_registry)
-rx_queue_gauge = Gauge('tcp_rx_queue', 'TCP RX Queue', ['local_ip', 'local_port','rem_ip','rem_port'], registry=custom_registry)
+tx_queue_gauge = Gauge('tcp_tx_queue', 'TCP TX Queue', ['local_ip', 'local_port', 'rem_ip', 'rem_port'], registry=custom_registry)
+rx_queue_gauge = Gauge('tcp_rx_queue', 'TCP RX Queue', ['local_ip', 'local_port', 'rem_ip', 'rem_port'], registry=custom_registry)
 
 def update_metrics():
-    for local_ip, local_port,rem_ip,rem_port, tx_queue, rx_queue in parse_tcp_file():
+    for local_ip, local_port, rem_ip, rem_port, tx_queue, rx_queue in parse_tcp_file():
         tx_queue_gauge.labels(local_ip=local_ip, local_port=local_port, rem_ip=rem_ip, rem_port=rem_port).set(tx_queue)
         rx_queue_gauge.labels(local_ip=local_ip, local_port=local_port, rem_ip=rem_ip, rem_port=rem_port).set(rx_queue)
 
-class AuthHandler(BaseHTTPRequestHandler):
-    """Main class to present webpages and authentication."""
-    def do_HEAD(self):
-        self.send_response(200)
-        self.send_header('Content-type', 'text/html')
-        self.end_headers()
+metrics_app = make_wsgi_app(custom_registry)
 
-    def do_AUTHHEAD(self):
-        self.send_response(401)
-        self.send_header('WWW-Authenticate', 'Basic realm="Test"')
-        self.send_header('Content-type', 'text/html')
-        self.end_headers()
-
-    def do_GET(self):
-        """Present frontpage with user authentication."""
-        if self.headers.get('Authorization') == None:
-            self.do_AUTHHEAD()
-            self.wfile.write(b'no auth header received')
-        elif self.headers.get('Authorization') == 'Basic ' + str(base64.b64encode(b"username:password"), "utf-8"):
-            self.send_response(200)
-            self.send_header('Content-type', 'text/html')
-            self.end_headers()
-            self.wfile.write(b'authenticated!')
-        else:
-            self.do_AUTHHEAD()
-            self.wfile.write(self.headers.get('Authorization').encode())
-            self.wfile.write(b'not authenticated')
+def custom_app(environ, start_response):
+    path = environ.get('PATH_INFO', '')
+    if path == '/metrics':
+        auth_header = environ.get('HTTP_AUTHORIZATION')
+        print(auth_header)
+        if auth_header:
+            auth_type, credentials = auth_header.split(' ', 1)
+            if auth_type.lower() == 'basic':
+                username, password = b64decode(credentials).decode('utf-8').split(':', 1)
+                print(bcrypt.checkpw(password.encode("utf-8"),auth_info['node'].encode('utf-8')))
+                if list(auth_info.keys())[0] == username and bcrypt.checkpw(password.encode("utf-8"),auth_info['node'].encode('utf-8')):
+                    return metrics_app(environ, start_response)
+        start_response('401 Unauthorized', [('Content-Type', 'text/plain'), ('WWW-Authenticate', 'Basic realm="Login Required"')])
+        return [b'Unauthorized']
+    else:
+        start_response('404 Not Found', [('Content-Type', 'text/plain')])
+        return [b'Not Found']
 
 if __name__ == '__main__':
     if len(sys.argv) != 2:
@@ -79,25 +75,28 @@ if __name__ == '__main__':
 
     config_file_path = sys.argv[1].split('=')[1]
     config = parse_yaml_config(config_file_path)
-    print(config)
+    #print(config)
 
     # Extract TLS and authentication information
-
     cert_file = config.get('tls_server_config', {}).get('cert_file', None)
     key_file = config.get('tls_server_config', {}).get('key_file', None)
     auth_info = config.get('basic_auth_users', {})
+    #auth_info_username=auth_info.split(':',1)
+    print(list(auth_info.keys())[0], auth_info['node'])
 
     # Print or use the extracted information as needed
     print("TLS Information:", cert_file)
     print("Authentication Information:", auth_info)
 
-    app = make_wsgi_app(custom_registry)
-    httpd = make_server('127.0.0.1', 9300, app)
-    httpd.serve_forever()
-    
+    httpd = make_server('127.0.0.1', 9300, custom_app)
+    context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+    context.load_cert_chain(certfile=cert_file, keyfile=key_file)
+    httpd.socket = context.wrap_socket(httpd.socket, server_side=True)
+    httpd.serve_forever(update_metrics())
+
     # Start up the server to expose the metrics.
-    #start_http_server(9300,'127.0.0.1',registry=custom_registry,certfile=cert_file,keyfile=key_file)
+    # start_http_server(9300,'127.0.0.1',registry=custom_registry,certfile=cert_file,keyfile=key_file)
     # Update metrics in a loop
-    #while True:
-    #    update_metrics()
-    #    time.sleep(15)  # Update every 10 seconds
+    # while True:
+    #     update_metrics()
+    #     time.sleep(15)  # Update every 10 seconds

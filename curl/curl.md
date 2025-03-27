@@ -24,3 +24,6 @@ curl -vI --silent https://www.baidu.com/ 2>&1 | grep expire
 curl -vI --silent https://www.baidu.com/ --stderr - | grep expire
 
 cat host |xargs -t -I {} curl -L -vI -s -w "%{http_code}" "https://{}" -o /dev/null
+
+# 查看curl执行时间
+curl -k -o /dev/null -s -w "time_namelookup: %{time_namelookup}s\\ntime_connect: %{time_connect}s\\ntime_appconnect: %{time_appconnect}s\\ntime_pretransfer: %{time_pretransfer}s\\ntime_starttransfer: %{time_starttransfer}s\\ntime_total: %{time_total}s\\n" "https://www.zj.gov.cn"

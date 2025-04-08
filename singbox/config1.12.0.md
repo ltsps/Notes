@@ -6,11 +6,12 @@
   "dns": {
     "servers": [
       {
-        "type": "https",
+        "type": "tls",
         "tag": "google",
         "detour": "trojan",
         "domain_resolver": "alidns",
-        "server": "dns.google"
+        "server": "dns.google",
+        "server_port": 853
       },
       {
         "type": "udp",

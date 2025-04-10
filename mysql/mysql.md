@@ -35,7 +35,23 @@ terminated by '\r\n';
 # 创建数库和用户及授权
 create database test default character set utf8 collate utf8_general_ci;
 create user 'user'@'%' identified by 'xxx';
- grant all privileges on test.* to 'user'@'%';
+grant all privileges on test.* to 'user'@'%';
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, RELOAD, PROCESS, FILE, REFERENCES, INDEX, ALTER, CREATE TEMPORARY TABLES, LOCK TABLES, EXECUTE, REPLICATION SLAVE, REPLICATION CLIENT, CREATE VIEW, SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE, EVENT, GRANT OPTION, TRIGGER ON *.* TO 'user'@'%';
+
+去除权限
+REVOKE GRANT OPTION ON*.* FROM 'zhangtiancheng'@'%';
+REVOKE SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, RELOAD, PROCESS, REFERENCES, INDEX, ALTER, CREATE TEMPORARY TABLES, LOCK TABLES, EXECUTE, REPLICATION SLAVE, REPLICATION CLIENT, CREATE VIEW, SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE, EVENT, TRIGGER ON*.* FROM 'user'@'%';
+
+使 expuser 账号密码立即过期
+mysql> ALTER USER 'expuser'@'%' PASSWORD EXPIRE;
+修改账号密码永不过期
+mysql> ALTER USER 'expuser'@'%' PASSWORD EXPIRE NEVER;
+单独设置该账号密码90天过期
+mysql> ALTER USER 'expuser'@'%' PASSWORD EXPIRE INTERVAL 90 DAY;
+查询密码过期情况
+select user,host,password_expired,password_lifetime,password_last_changed,account_locked from mysql.user;
+让此账号使用默认的密码过期全局策略
+mysql> ALTER USER 'expuser'@'%' PASSWORD EXPIRE DEFAULT;
 
  # 修改数据库并发连接
  1、show variables like '%max_connections%';
@@ -55,4 +71,8 @@ create user 'user'@'%' identified by 'xxx';
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='tt';
 ### 插入测试数据
 insert into tt (name,create_time) values (@@hostname, now());
+
+### 替代大表统计行数sql 不可分开查询
+select SQL_CALC_FOUND_ROWS 1 from order_manage_test limit 1; #先执行，
+select found_rows() as rowcount #获取上次查询的总行数
  

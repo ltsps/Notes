@@ -23,3 +23,10 @@ convert gpt
 ## 苹果电脑安装
 进入u盘启动
 启动过程中按住options,在bootcamp界面，选择u盘启动
+
+
+# 激活
+```
+irm https://get.activated.win | iex
+```
+You will see the activation options. Choose (1) HWID for Windows activation. Choose (2) Ohook for Office activation.

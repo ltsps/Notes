@@ -11,7 +11,15 @@ reg add HKLM\System\Setup\LabConfig /v BypassSecureBootCheck /t REG_DWORD /d 1
 检查磁盘 mbr2gpt /validate
 开始转换 mbr2gpt /convert
 ```
-
+待测
+在安装过程中按shift+f10执行如下命令进行转换
+```
+diskpart
+list disk
+select disk X
+clean    #清除磁盘，是否无损待验证
+convert gpt
+```
 ## 苹果电脑安装
 进入u盘启动
 启动过程中按住options,在bootcamp界面，选择u盘启动

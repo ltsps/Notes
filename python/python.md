@@ -57,3 +57,37 @@ source venv_dir/bin/activate
 deactivate
 
 python3 -m http.server 8000
+
+### 装饰器的使用
+示例一
+def log(level):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            print(f"[{level}] 调用函数: {func.__name__}")
+            return func(*args, **kwargs)
+        return wrapper
+    return decorator
+
+@log("INFO")
+def say_hello():
+    print("Hello!")
+say_hello()
+# 等价于 say_hello = log("INFO")(say_hello)
+示例二
+import time
+
+def timer(func):
+    def wrapper(*args, **kwargs):
+        start_time = time.time()
+        result = func(*args, **kwargs)
+        end_time = time.time()
+        print(f"{func.__name__} 执行时间: {end_time - start_time} 秒")
+        return result
+    return wrapper
+
+@timer
+def calculate_sum(n):
+    return sum(range(n + 1))
+
+# 等价于 calculate_sum = timer(calculate_sum)
+calculate_sum(1000000)  # 会输出函数执行时间

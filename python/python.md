@@ -15,7 +15,7 @@ my_module._internal_func()
 解决命名冲突
 #### 3. 双前导下划线 __var
 防止被子类重写
-```
+```python
 class Test:
    def __init__(self):
        self.foo = 11
@@ -62,7 +62,7 @@ deactivate
 python3 -m http.server 8000
 
 ### 装饰器的使用
-```
+```python
 示例一
 def log(level):
     def decorator(func):
@@ -78,7 +78,7 @@ def say_hello():
 say_hello()
 # 等价于 say_hello = log("INFO")(say_hello)
 ```
-```
+```python
 示例二
 import time
 

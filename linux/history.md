@@ -1,0 +1,5 @@
+## /etc/bashrc
+# 增加行数，并修改格式
+HISTFILESIZE=2000
+HISTSIZE=2000
+HISTTIMEFORMAT='%F %T'

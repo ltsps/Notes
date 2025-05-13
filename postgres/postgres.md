@@ -9,14 +9,16 @@ psql -Upostgres    登录数据库
 sudo -u postgres psql -U postgres
 ALTER USER postgres WITH PASSWORD 'new_password';
 ## 配置远程登录
+```
 vim pg_hba.conf
 host    all             all             0.0.0.0/0                       scram-sha-256
-
+```
 ## 数据库操作
+```
 \l 查看数据库
 \c $database 连接数据库，相当于mysql use $database
 \dt 查看表
-
+```
 ## 创建用户名
 ```
 create user $username with password '1234';

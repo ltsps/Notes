@@ -1,8 +1,12 @@
-docker run --name postgres -e POSTGRES_PASSWORD=xxx -pxx:xx -v xx:xx -d postgres
 
+## 容器化部署
 ```
 docker run -d --name postgres -e POSTGRES_PASSWORD=mysecretpassword -e PGDATA=/var/lib/postgresql/data/pgdata -v /custom/mount:/var/lib/postgresql/data -p 5432:5432	postgres
 ```
+## 物理机部署
+登录方法
+sudo -u postgres psql -U postgres
+ALTER USER postgres WITH PASSWORD 'new_password';
 
 psql -Upostgres    登录数据库
 \l 查看数据库

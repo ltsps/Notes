@@ -58,6 +58,19 @@ python3 -m venv venv_dir
 source venv_dir/bin/activate
 ### 退出
 deactivate
+### cursor/vscode IDE设置虚拟环境
+打开命令面板‌
+使用快捷键 Ctrl+Shift+P（Windows/Linux）或 Cmd+Shift+P（macOS）。
+‌选择 Python 解释器‌
+输入并选择 Python: Select Interpreter，从列表中找到虚拟环境对应的解释器（路径通常包含 venv 或虚拟环境名称
+
+手动配置 .vscode/settings.json
+`‌``json
+{
+    "python.defaultInterpreterPath": "venv/Scripts/python.exe"  // Windows
+    // 或 "venv/bin/python"（macOS/Linux）
+}
+```
 
 python3 -m http.server 8000
 

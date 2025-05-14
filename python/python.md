@@ -65,7 +65,7 @@ deactivate
 输入并选择 Python: Select Interpreter，从列表中找到虚拟环境对应的解释器（路径通常包含 venv 或虚拟环境名称
 
 手动配置 .vscode/settings.json
-`‌``json
+```json
 {
     "python.defaultInterpreterPath": "venv/Scripts/python.exe"  // Windows
     // 或 "venv/bin/python"（macOS/Linux）

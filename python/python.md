@@ -67,8 +67,7 @@ deactivate
 手动配置 .vscode/settings.json
 ```json
 {
-    "python.defaultInterpreterPath": "venv/Scripts/python.exe"  // Windows
-    // 或 "venv/bin/python"（macOS/Linux）
+    "python.defaultInterpreterPath": "venv/Scripts/python.exe" 
 }
 ```
 

@@ -32,4 +32,4 @@ reconfigure WITH override;
 ```
 
 连接数据库
-./sqlcmd -H xxx -Usa -W  -C
+./sqlcmd -S xxx -Usa -P  -C

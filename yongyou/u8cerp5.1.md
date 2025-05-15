@@ -30,3 +30,6 @@ reconfigure WITH override;
 sp_configure 'max degree of parallelism',1;
 reconfigure WITH override;
 ```
+
+连接数据库
+./sqlcmd -H xxx -Usa -W  -C

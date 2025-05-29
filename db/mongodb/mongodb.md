@@ -10,4 +10,6 @@ db.auth('root','admin')
 
 use mydb
 db.createUser({user: 'user', pwd: '123456', roles: [{role:'readWrite',db:'mydb'}]})
+
+db.changeUserPassword('user','xxxx')
 ```

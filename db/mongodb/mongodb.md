@@ -12,4 +12,11 @@ use mydb
 db.createUser({user: 'user', pwd: '123456', roles: [{role:'readWrite',db:'mydb'}]})
 
 db.changeUserPassword('user','xxxx')
+
+
+查询
+admin> show tables;
+system.version
+db.mycollection.find();    # select * from system.version;
+
 ```

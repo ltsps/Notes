@@ -21,6 +21,10 @@ system.version
 db.mycollection.find();    # select * from system.version;
 
 db.createCollection('collection_name')  # 创建集合（表）
+db.adminCommand({
+  renameCollection: "test.oldCollection",
+  to: "production.newCollection"
+});  #更改集合（表）名
 db.dropDatabase()  # use db 删除db
 
 db.myCollection.insertOne({ name: "Alice", age: 30 })

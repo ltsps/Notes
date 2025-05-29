@@ -20,6 +20,7 @@ admin> show tables;
 system.version
 db.mycollection.find();    # select * from system.version;
 db.myCollection.find({ age: { $gt: 25 } });
+db.users.find({gender:"M"},{user_name:1,_id:0}).hint({gender:1,user_name:1}).explain() #查询分析
 
 db.createCollection('collection_name')  # 创建集合（表）
 db.adminCommand({

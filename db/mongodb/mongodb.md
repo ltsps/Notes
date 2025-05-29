@@ -20,3 +20,10 @@ system.version
 db.mycollection.find();    # select * from system.version;
 
 ```
+
+```
+#mongod.conf
+#启用身份验证
+security:
+  authorization: "enabled"
+```
